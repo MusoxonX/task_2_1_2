@@ -2,11 +2,11 @@ package uz.pdp.task_2_1_2.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uz.pdp.task_2_1_2.entity.Language;
+import uz.pdp.task_2_1_2.entity.Category;
 import uz.pdp.task_2_1_2.entity.Work;
 import uz.pdp.task_2_1_2.payload.ApiResponse;
 import uz.pdp.task_2_1_2.payload.WorkDto;
-import uz.pdp.task_2_1_2.repository.LanguageRepository;
+import uz.pdp.task_2_1_2.repository.CategoryRepository;
 import uz.pdp.task_2_1_2.repository.WorkRepository;
 
 import java.util.List;
@@ -19,13 +19,14 @@ public class WorkService {
     WorkRepository workRepository;
 
     @Autowired
-    LanguageRepository languageRepository;
+    CategoryRepository categoryRepository;
 
 //    add work
     public ApiResponse addWork(WorkDto workDto){
-        Optional<Language> optionalLanguage = languageRepository.findById(workDto.getLanguageId());
-        if (!optionalLanguage.isPresent()){
-            return new ApiResponse("language not found",false);
+
+        Optional<Category> optionalCategory = categoryRepository.findById(workDto.getCategoryId());
+        if (!optionalCategory.isPresent()){
+            return new ApiResponse("category not found",false);
         }
 
         Work work = new Work();
@@ -34,7 +35,7 @@ public class WorkService {
         work.setQuestion(workDto.getQuestion());
         work.setSolution(workDto.getSolution());
         work.setStar(true);
-        work.setLanguage(optionalLanguage.get());
+        work.setCategory(optionalCategory.get());
         workRepository.save(work);
         return new ApiResponse("work saved",true);
     }
@@ -53,10 +54,12 @@ public class WorkService {
     }
 //    edit work
     public ApiResponse editWork(Integer id,WorkDto workDto){
-        Optional<Language> optionalLanguage = languageRepository.findById(workDto.getLanguageId());
-        if (!optionalLanguage.isPresent()){
-            return new ApiResponse("language not found",false);
+
+        Optional<Category> optionalCategory = categoryRepository.findById(workDto.getCategoryId());
+        if (!optionalCategory.isPresent()){
+            return new ApiResponse("category not found",false);
         }
+
         Optional<Work> optionalWork = workRepository.findById(id);
         if (!optionalWork.isPresent()){
             return new ApiResponse("work not found",false);
@@ -67,7 +70,7 @@ public class WorkService {
         work.setQuestion(workDto.getQuestion());
         work.setSolution(workDto.getSolution());
         work.setStar(true);
-        work.setLanguage(optionalLanguage.get());
+        work.setCategory(optionalCategory.get());
         workRepository.save(work);
         return new ApiResponse("work edit successfully",true);
     }

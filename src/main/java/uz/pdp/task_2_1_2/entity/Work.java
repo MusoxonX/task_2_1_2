@@ -27,6 +27,6 @@ public class Work {
     private boolean star;
 
     @ManyToOne
-    private Language language;
+    private Category category;
 
 }

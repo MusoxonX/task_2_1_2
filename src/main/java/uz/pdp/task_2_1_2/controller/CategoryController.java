@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import uz.pdp.task_2_1_2.entity.Category;
 import uz.pdp.task_2_1_2.entity.Language;
 import uz.pdp.task_2_1_2.payload.ApiResponse;
+import uz.pdp.task_2_1_2.payload.CategoryDto;
 import uz.pdp.task_2_1_2.service.CategoryService;
 import uz.pdp.task_2_1_2.service.LanguageService;
 
@@ -26,7 +27,7 @@ public class CategoryController {
     CategoryService categoryService;
 //    add laguage
     @PostMapping()
-    public HttpEntity<ApiResponse> addCategory(@Valid @RequestBody Category categoryDto){
+    public HttpEntity<ApiResponse> addCategory(@Valid @RequestBody CategoryDto categoryDto){
         ApiResponse apiResponse = categoryService.addCategory(categoryDto);
         if (apiResponse.isSuccess()){
             return ResponseEntity.status(201).body(apiResponse);
@@ -48,7 +49,7 @@ public class CategoryController {
     }
 //      edit category
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> editCategory(@Valid @PathVariable Integer id,@RequestBody Category categoryDto){
+    public ResponseEntity<ApiResponse> editCategory(@Valid @PathVariable Integer id,@RequestBody CategoryDto categoryDto){
         ApiResponse apiResponse = categoryService.editCategory(id, categoryDto);
         if (apiResponse.isSuccess()){
             return ResponseEntity.status(201).body(apiResponse);

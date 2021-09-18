@@ -9,5 +9,5 @@ public class WorkDto {
     private String question;
     private String solution;
     private boolean star;
-    private Integer languageId;
+    private Integer categoryId;
 }

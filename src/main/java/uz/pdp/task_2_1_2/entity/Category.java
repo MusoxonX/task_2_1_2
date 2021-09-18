@@ -18,6 +18,6 @@ public class Category {
 
     private String name;
 
-    @ManyToMany
-    private List<Language> language;
+    @ManyToOne
+    private Language language;
 }
